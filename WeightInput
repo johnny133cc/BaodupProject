@@ -32,7 +32,7 @@
           return;
         }
 
-        fetch("YOUR_WEB_APP_URL_HERE", {
+        fetch("https://script.google.com/macros/s/AKfycbwrTPsB0wl3Hwl2cM_2C4AzVLh0KbvwYgPCi1gNs9JxMjzy2sDw91gBQ-oGntZALBJI/exec", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: `value=${encodeURIComponent(num)}`
