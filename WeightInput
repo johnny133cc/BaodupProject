@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quick Logger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body { font-family: sans-serif; text-align: center; padding: 20px; }
+      input[type="number"] {
+        font-size: 32px;
+        padding: 10px;
+        width: 80%;
+        margin-bottom: 20px;
+      }
+      button {
+        font-size: 24px;
+        padding: 12px 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>📥 輸入數字記錄</h2>
+    <input type="number" id="numInput" placeholder="輸入數值" />
+    <br>
+    <button onclick="submitData()">送出</button>
+    <p id="status"></p>
+
+    <script>
+      function submitData() {
+        const num = document.getElementById("numInput").value;
+        if (!num) {
+          document.getElementById("status").innerText = "請輸入數字";
+          return;
+        }
+
+        fetch("YOUR_WEB_APP_URL_HERE", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `value=${encodeURIComponent(num)}`
+        })
+        .then(res => res.text())
+        .then(text => {
+          document.getElementById("status").innerText = "✅ 已記錄: " + num;
+          document.getElementById("numInput").value = "";
+        })
+        .catch(err => {
+          document.getElementById("status").innerText = "❌ 發生錯誤";
+        });
+      }
+    </script>
+  </body>
+</html>
