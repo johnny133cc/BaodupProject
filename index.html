@@ -33,12 +33,9 @@
       const value = document.getElementById("value").value;
 
       fetch("https://script.google.com/macros/s/AKfycbxcbUoFbO-z0UmsVjBOUuBhWgtdKfiZUSepOsrqFD6GHe8SPjMz_7e7Iix1ov8ebvbj/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams({ value: value })
-      })
+  method: "POST",
+  body: new URLSearchParams({ value: yourValue })
+})
       .then(response => response.text())
       .then(result => {
         console.log("Success:", result);
