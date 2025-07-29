@@ -34,7 +34,7 @@
 
       fetch("https://script.google.com/macros/s/AKfycbxcbUoFbO-z0UmsVjBOUuBhWgtdKfiZUSepOsrqFD6GHe8SPjMz_7e7Iix1ov8ebvbj/exec", {
   method: "POST",
-  body: new URLSearchParams({ value: yourValue })
+  body: new URLSearchParams({ value: value })
 })
       .then(response => response.text())
       .then(result => {
