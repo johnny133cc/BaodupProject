@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Quick Logger</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      body { font-family: sans-serif; text-align: center; padding: 20px; }
-      input[type="number"] {
-        font-size: 32px;
-        padding: 10px;
-        width: 80%;
-        margin-bottom: 20px;
-      }
-      button {
-        font-size: 24px;
-        padding: 12px 24px;
-      }
-    </style>
-  </head>
-  <body>
-    <h2>📥 輸入數字記錄</h2>
-    <input type="number" id="numInput" placeholder="輸入數值" />
-    <br>
-    <button onclick="submitData()">送出</button>
-    <p id="status"></p>
+<head>
+  <title>Quick Logger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    input[type="number"] {
+      font-size: 32px;
+      padding: 10px;
+      width: 80%;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 24px;
+      padding: 12px 24px;
+    }
+  </style>
+</head>
+<body>
+  <h2>📥 輸入數字記錄</h2>
+  <input type="number" id="value" placeholder="輸入數值" />
+  <br>
+  <button onclick="submitValue()">送出</button>
+  <p id="result"></p>
 
-    <script>
-  function submitValue() {
-    const value = document.getElementById("value").value;
+  <script>
+    function submitValue() {
+      const value = document.getElementById("value").value;
 
-    fetch("https://script.google.com/macros/s/AKfycbYOUR_WEB_APP_ID/exec", {
-      method: "POST",
-      body: new URLSearchParams({ value: value })
-    })
+      fetch("https://script.google.com/macros/s/AKfycbxcbUoFbO-z0UmsVjBOUuBhWgtdKfiZUSepOsrqFD6GHe8SPjMz_7e7Iix1ov8ebvbj/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({ value: value })
+      })
       .then(response => response.text())
       .then(result => {
-        document.getElementById("result").innerText = "已記錄: " + value;
+        console.log("Success:", result);
+        document.getElementById("result").innerText = "✅ 已記錄: " + value;
       })
       .catch(error => {
         console.error("錯誤:", error);
-        document.getElementById("result").innerText = "提交失敗";
+        document.getElementById("result").innerText = "❌ 提交失敗";
       });
-  }
-    </script>
-
-  </body>
+    }
+  </script>
+</body>
 </html>
+
