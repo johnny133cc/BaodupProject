@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quick Logger</title>
+  <meta charset="UTF-8">
+  <title>Quick Logger + Average Reader</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -19,6 +20,14 @@
       font-size: 24px;
       padding: 12px 24px;
     }
+    #result, #avg {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+    #avg {
+      color: #2b8a3e;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -28,26 +37,45 @@
   <button onclick="submitValue()">送出</button>
   <p id="result"></p>
 
+  <h2>📊 平均值</h2>
+  <p id="avg">Loading...</p>
+
   <script>
+    // Submit user input to Google Sheet
     function submitValue() {
       const value = document.getElementById("value").value;
 
       fetch("https://script.google.com/macros/s/AKfycbw-1vqcRtCkrpsHTpiNetbw0mxN7RwjdoUPqGHckiiuG0FOhj5AXQHFM3uYGHq05mER/exec", {
-  method: "POST",
-  body: new URLSearchParams({ value: value })
-})
-
+        method: "POST",
+        body: new URLSearchParams({ value: value })
+      })
       .then(response => response.text())
       .then(result => {
         console.log("Success:", result);
         document.getElementById("result").innerText = "✅ 已記錄: " + value;
+        loadAverage(); // Refresh average after successful submission
       })
       .catch(error => {
         console.error("錯誤:", error);
         document.getElementById("result").innerText = "❌ 提交失敗";
       });
     }
+
+    // Load average from another Apps Script endpoint
+    function loadAverage() {
+      fetch("https://script.google.com/macros/s/AKfycbw-1vqcRtCkrpsHTpiNetbw0mxN7RwjdoUPqGHckiiuG0FOhj5AXQHFM3uYGHq05mER/exec") 
+        .then(response => response.text())
+        .then(avg => {
+          document.getElementById("avg").innerText = `平均值: ${avg}`;
+        })
+        .catch(error => {
+          console.error("Average Fetch Error:", error);
+          document.getElementById("avg").innerText = "❌ 無法取得平均值";
+        });
+    }
+
+    // Load average on page load
+    window.onload = loadAverage;
   </script>
 </body>
 </html>
-
