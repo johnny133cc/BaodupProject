@@ -32,10 +32,11 @@
     function submitValue() {
       const value = document.getElementById("value").value;
 
-      fetch("https://script.google.com/macros/s/AKfycbxcbUoFbO-z0UmsVjBOUuBhWgtdKfiZUSepOsrqFD6GHe8SPjMz_7e7Iix1ov8ebvbj/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbw-1vqcRtCkrpsHTpiNetbw0mxN7RwjdoUPqGHckiiuG0FOhj5AXQHFM3uYGHq05mER/exec", {
   method: "POST",
   body: new URLSearchParams({ value: value })
 })
+
       .then(response => response.text())
       .then(result => {
         console.log("Success:", result);
